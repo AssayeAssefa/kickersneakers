@@ -1,0 +1,34 @@
+<template>
+    <template if:true={shoesRecord}>
+        <lightning-card title={shoesRecord.Name} icon-name="custom:custom54">
+            <div class="slds-var-m-around_small">
+                <p>
+                    <img src={shoesRecord.imageUrl__c} width="300" height="150" />
+                </p>
+
+                <p>
+                    <strong>Brand : </strong> {shoesRecord.Brand__c}</br>
+                    <strong>Colorway : </strong> {shoesRecord.colorway__c} </br>
+                    <strong>Release Date : </strong> {shoesRecord.releaseDate__c} </br>
+                    <strong>Year : </strong> {shoesRecord.year__c}
+                    <strong> Retail Price : </strong> {shoesRecord.retailPrice__c} </br>
+                    <strong>Title : </strong> {shoesRecord.title__c} </br>
+
+
+                </p>
+                <p class="slds-var-m-around_small">
+                    <lightning-button label="Add to cart" variant="brand"
+                        onclick={handleAddToCart}>
+
+                    </lightning-button>
+                </p>
+            </div>
+
+
+        </lightning-card>
+
+
+    </template>
+
+
+</template>

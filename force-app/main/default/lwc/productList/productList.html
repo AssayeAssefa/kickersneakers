@@ -1,0 +1,30 @@
+<template>
+    Ver 5
+    <div style="background: white; border-radius: 10px;">
+
+
+        <div style="margin-left: 130px;" align="right">
+            <a href="JavaScript:void(0);" onclick={navigateToDetail}>
+                <img src={cart} height="70" width="80" />
+                <strong class="slds-m-top_small"
+                    style="position: absolute;top: 70px; right: 33px;color: red;text-align: center; font-size:19px;">{itemsInCart}</strong>
+            </a>
+        </div>
+
+        <div class="slds-m-left_small slds-m-right_small slds-m-bottom_small">
+            <c-product-search onsearch={handleSearch}></c-product-search>
+        </div>
+        <div class="slds-m-left_small slds-m-right_small slds-m-bottom_small">
+            <template if:true={shoesRecords}>
+                <div class="slds-grid slds-wrap">
+                    <template for:each={shoesRecords} for:item="item">
+                        <div class="slds-col slds-size_1-of-3 " key={item.Id}>
+                            <c-shoes-tile shoes-record={item} oncart={addToCart}>
+                            </c-shoes-tile>
+                        </div>
+                    </template>
+</div>
+</template>
+</div>
+</div>
+</template>

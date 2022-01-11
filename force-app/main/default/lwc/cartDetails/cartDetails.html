@@ -1,0 +1,116 @@
+<template>
+    <lightning-card title="Cart Detail" icon-name="utility:cart">
+        <div class="slds-p-around_large">
+            <div class="slds-grid slds-wrap">
+                <div class="c-container slds-col slds-size_8-of-12">
+                    <div class="slds-text-heading_medium slds-var-m-left_medium slds-var-m-top_large
+                            slds-p-around_medium"
+                        style="background-color: darkseagreen;">
+                        SHOPPPING CART
+
+                    </div>
+                    <!-- use lightning layouts instead of divs -->
+                    <div class="slds-text-heading_small slds-var-m-around_large">
+                        <div class="slds-grid slds-wrap">
+
+                            <span
+                                class="slds-col slds-size_3-of-12 slds-text-title_bold">Item
+                                Name</span>
+                            <span
+                                class="slds-col slds-size_3-of-12 slds-text-title_bold">Price</span>
+                            <span
+                                class="slds-col slds-size_3-of-12 slds-text-title_bold">Quantity</span>
+                            <span
+                                class="slds-col slds-size_3-of-12 slds-text-title_bold"></span>
+                        </div>
+                    </div>
+
+
+
+                    <template if:true={cartItemsArray}>
+
+                        <template for:each={cartItemsArray} for:item="item">
+
+                            <div class="slds-text-heading_small slds-var-m-around_large"
+                                key={item.Name}>
+
+                                <c-cart-item cart-item={item}
+                                    onshoesremove={shoesRemoveClicked}>
+                                </c-cart-item> </br>
+
+
+                            </div>
+                        </template>
+
+</template>
+
+
+<template if:false={cartItemsArray}>
+                        <h2> There are no items in your cart</h2>
+                    </template>
+
+
+
+
+</div>
+<div class="slds-box  slds-col slds-size_4-of-12 slds-m-top_large">
+
+    <div class="slds-box slds-p-around_large slds-text-title_bold">
+        <p>Subtotal ({numberShoesTypes} items):&nbsp;
+            <lightning-formatted-number value={subTotalPrice} format-style="currency" currency-code="USD">
+            </lightning-formatted-number>
+        </p>
+    </div>
+    <template if:true={cartItemsArray.length}>
+                        <div class="slds-m-top_medium slds-text-title_bold"> Have a
+                            Coupon?
+                            <a onclick={showClicked}>
+                                &nbsp;Apply Here
+                            </a>
+                            <template if:true={showCouponConfirmation}>
+                                <div> ${couponValue}.00 have been applied successfully
+                                </div>
+                            </template>
+    <template if:true={couponnotworking}>
+                                <div> Coupon not working</div>
+                            </template>
+    <template if:true={boolVisible}>
+                                <div class="slds-p-around_medium lgc-bg">
+                                    <lightning-input type="text"
+                                        label="Provide Valid Coupon">
+                                    </lightning-input>
+                                    <lightning-button variant="brand" label="Submit"
+                                        title="Apply Coupon"
+                                        onclick={handleCouponSubmission}
+                                        class="slds-m-left_x-small"></lightning-button>
+                                </div>
+                            </template>
+
+</div>
+</template>
+<div class="slds-m-around_medium">
+    <button class="slds-button slds-button_brand" onclick={continueShoppingClicked}>Continue
+                            Shopping</button>
+    <template if:true={cartItemsArray.length}><button
+                                class="slds-button slds-button_neutral">Proceed
+                                Checkout</button></template>
+</div>
+</div>
+
+</div>
+<div class="slds-m-around_medium slds-m-around_large">
+
+    <button class="slds-button slds-button_brand" onclick={continueShoppingClicked}>Continue Shopping</button>
+    <template if:true={cartItemsArray.length}><button
+                        class="slds-button slds-button_neutral">Procees Checkout</button>
+                </template>
+
+
+
+
+
+</div>
+</div>
+</lightning-card>
+
+</template>
