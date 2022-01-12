@@ -45,7 +45,10 @@ public class KickerSneakersController {
     }
 
     @AuraEnabled
-    public static string createCartItems(String CartId, String ShoesId, Decimal Amount){
+    public static string createCartItems(String CartId, String ShoesId, Decimal Amount,String ThumbURL){
+        
+  
+        
         SCart_Item__c item = new SCart_Item__c();
         
         item.Item_Quantity__c = 0;
@@ -69,6 +72,7 @@ public class KickerSneakersController {
             item.Cart__c = CartId;
             item.Item_Quantity__c = 1;
             item.Item_Amount__c = Amount;
+            item.thumbUrl__c = ThumbURL;
             insert item;
            // system.debug('printing item.Id...' + item.Id);
             return item.Id;
@@ -112,7 +116,7 @@ cartItem = [Select Id, Name, Shoes__c,Shoes__r.Name, Cart__c, Item_Quantity__c, 
                                 AND Is_Active__c = true];
         if (cartInfo != null && cartInfo.size() > 0) {
             List<SCart_Item__c> cartItems = new list<SCart_Item__c>();
-            cartItems = [Select Id, Name, Shoes__c,Shoes__r.Name, Cart__c, Item_Quantity__c, Item_Amount__c
+            cartItems = [Select Id, Name, Shoes__c,Shoes__r.Name, Cart__c, Item_Quantity__c, Item_Amount__c, thumbUrl__c
                                 FROM SCart_Item__c
                                 Where Cart__c =: cartInfo.get(0).Id]; //???????
             

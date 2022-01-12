@@ -12,14 +12,16 @@
                     <!-- use lightning layouts instead of divs -->
                     <div class="slds-text-heading_small slds-var-m-around_large">
                         <div class="slds-grid slds-wrap">
-
                             <span
-                                class="slds-col slds-size_3-of-12 slds-text-title_bold">Item
+                                class="slds-col slds-size_2-of-12 slds-text-title_bold">Item
+                                Image</span>
+                            <span
+                                class="slds-col slds-size_4-of-12 slds-text-title_bold">Item
                                 Name</span>
                             <span
-                                class="slds-col slds-size_3-of-12 slds-text-title_bold">Price</span>
+                                class="slds-col slds-size_2-of-12 slds-text-title_bold">Price</span>
                             <span
-                                class="slds-col slds-size_3-of-12 slds-text-title_bold">Quantity</span>
+                                class="slds-col slds-size_1-of-12 slds-text-title_bold">Quantity</span>
                             <span
                                 class="slds-col slds-size_3-of-12 slds-text-title_bold"></span>
                         </div>
@@ -72,7 +74,7 @@
                                 </div>
                             </template>
     <template if:true={couponnotworking}>
-                                <div> Coupon not working</div>
+                                <div> Invalid coupon, please try again</div>
                             </template>
     <template if:true={boolVisible}>
                                 <div class="slds-p-around_medium lgc-bg">

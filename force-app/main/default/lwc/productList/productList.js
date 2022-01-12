@@ -15,40 +15,36 @@ export default class ProductList extends NavigationMixin(LightningElement) {
     @track cartId;
     @track itemsInCart = 0;
 
-    /*
-    defaultCartID() -> getCartId() -> cartItems ,CartId, Count
-    wiredRecords -> searchBeer() ->  shoesRecords
-    addtocart() -> createCartItems(CartId, BeerId, Amount) 
-    handleSearch() -> searchBeer(value) -> shoesRecords
-    */
+
 
     connectedCallback() {
+        //load cart from DB on initiation
         this.defaultCartID();
     }
 
     defaultCartID() {
 
-        getCartId()
-            .then(data => {
-                // console.log('printing default cartID Data', data);
-                const wrapper = JSON.parse(data);
-                if (wrapper) {
-                    console.log('----->>>>printing wrapper' + wrapper);
-                    this.itemsInCart = wrapper.Count;
-                    this.cartId = wrapper.CartId;
-                    // --------> wrapper.items = cartItems; ? where
-                }
-            })
-            .catch(error => {
-                this.cartId = undefined;
-                console.log(error);
-            })
+            getCartId()
+                .then(data => {
+
+                    const wrapper = JSON.parse(data);
+                    if (wrapper) {
+
+                        this.itemsInCart = wrapper.Count;
+                        this.cartId = wrapper.CartId;
+
+                    }
+                })
+                .catch(error => {
+                    this.cartId = undefined;
+                    console.log(error);
+                })
 
 
 
 
-    }
-
+        }
+        //call controller to get 50 random products on init and load shoesRecords
     @wire(searchShoes)
     wiredRecords({ error, data }) {
 
@@ -63,15 +59,17 @@ export default class ProductList extends NavigationMixin(LightningElement) {
         const selectedShoesId = event.detail;
 
 
-
+        //search shoesRecords for the clicked item 
         const selectShoesRecord = this.shoesRecords.find(
             shoesRecord => shoesRecord.Id === selectedShoesId
         );
 
+        // save items to cart 
         createCartItems({
                 CartId: this.cartId,
                 ShoesId: selectedShoesId,
-                Amount: selectShoesRecord.retailPrice__c
+                Amount: selectShoesRecord.retailPrice__c,
+                ThumbURL: selectShoesRecord.thumbUrl__c
             })
             .then(
                 data => {
@@ -97,25 +95,26 @@ export default class ProductList extends NavigationMixin(LightningElement) {
 
     handleSearch(event) {
 
-        const eventval = event.detail;
+            const eventval = event.detail;
 
-        console.log(eventval);
-
-
-        //imperative way. wire method retrieves read only records
-        searchShoes({ searchParam: eventval }).then(result => {
-            //   console.log('result', result)
-            this.shoesRecords = result;
-            this.errors = undefined;
-        }).catch(error => {
-            console.log('error', error)
-            this.shoesRecords = undefined;
-            this.errors = error;
+            console.log(eventval);
 
 
-        })
+            //imperative way. wire method retrieves read only records
+            searchShoes({ searchParam: eventval }).then(result => {
 
-    }
+                this.shoesRecords = result;
+                this.errors = undefined;
+            }).catch(error => {
+                console.log('error', error)
+                this.shoesRecords = undefined;
+                this.errors = error;
+
+
+            })
+
+        }
+        //transfer user to details page 
     navigateToDetail() {
 
         this[NavigationMixin.Navigate]({
